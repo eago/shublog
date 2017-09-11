@@ -15,6 +15,10 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#in case of not loading Ueditor
+TEMPLATES_DIRS=(
+    os.path.join(BASE_DIR,'templates').replace('\\','/'),
+    )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -25,7 +29,7 @@ SECRET_KEY = '(n_22^0b!gx3q2l91ye@d$t&34r6wo+cc&)zyo@7sh@&^@#2@+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shublog.apps.ShublogConfig',
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'shublog.urls'
+ROOT_URLCONF = 'shuSite.urls'
 
 TEMPLATES = [
     {
@@ -67,17 +73,28 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'shublog.wsgi.application'
+WSGI_APPLICATION = 'shuSite.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
+''' DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+} '''
+
+# local Mysql
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shu_blog2',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'127.0.0.1',
+        'PORT':'3306'    }
 }
 
 
@@ -104,8 +121,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
+
+#add for chinese character
+DEFAULT_CHARSET='utf-8'
+FILE_CHARSET='utf-8'
+
 
 USE_I18N = True
 
@@ -118,3 +141,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static").replace('\\','/')
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "upload").replace('\\','/')
