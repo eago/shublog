@@ -1,2 +1,18 @@
 {% extends "base.html" %}
 
+{% load custom_filters %}
+
+{% block title_list %}
+
+    {% for blog_info in blogs_info %}
+    <div class="blog_list">
+        <div class="blog_title">
+            <h2>title: {{blog_info.title}}</h2>
+            <p>Time: {{blog_info.pub_time|date:"Y-m-d H:i:s"}}</p>
+        </div>
+    </div>
+
+    {% empty %}
+    <h3>这个人好懒，一个字都没写</h3>
+    {% endfor%}
+{% endblock %}
