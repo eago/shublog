@@ -14,6 +14,7 @@ def get_blog_info(objects):
     for blog in objects:
         blogs_info.append({
             'title': blog.title,
+            'id':blog.id,
             'desc': blog.desc,
             'pub_time': blog.create_date,
         })
@@ -27,3 +28,10 @@ def index(request):
             }
     print blog_info_list
     return render(request, "./index.html", content)
+
+def blog_detail(request, blog_id):
+    blog = Article.objects.get(id=blog_id)
+    content =  {
+        'blog':blog,
+    }
+    return render(request, "./detail.html", content)
