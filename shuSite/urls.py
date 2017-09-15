@@ -18,11 +18,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from shublog.views import index, blog_detail
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^$', index, name='index'),
+     url(r'^favicon.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
     url(r'^blog_detail/blog_(?P<blog_id>\d+)/$', blog_detail, name='blog_detail'),
 ]
 if settings.DEBUG:
